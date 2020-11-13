@@ -37,19 +37,19 @@ public class CategoriaResource {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping()
-	public ResponseEntity<List<CategoriaDTO>> findAll() {
-		List<Categoria> list = service.findAll();
-		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
-		return ResponseEntity.ok().body(listDTO);
-	}
-	
 	@PostMapping
 	public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO objDTO){
 		Categoria obj = service.fromDTO(objDTO);
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
+	}
+	
+	@GetMapping()
+	public ResponseEntity<List<CategoriaDTO>> findAll() {
+		List<Categoria> list = service.findAll();
+		List<CategoriaDTO> listDTO = list.stream().map(obj -> new CategoriaDTO(obj)).collect(Collectors.toList());
+		return ResponseEntity.ok().body(listDTO);
 	}
 	
 	@PutMapping(value = "/{id}")
