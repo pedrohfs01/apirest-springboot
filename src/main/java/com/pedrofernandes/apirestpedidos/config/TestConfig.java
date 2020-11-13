@@ -24,6 +24,8 @@ import com.pedrofernandes.apirestpedidos.repositories.CidadeRepository;
 import com.pedrofernandes.apirestpedidos.repositories.ClienteRepository;
 import com.pedrofernandes.apirestpedidos.repositories.EnderecoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.EstadoRepository;
+import com.pedrofernandes.apirestpedidos.repositories.PagamentoRepository;
+import com.pedrofernandes.apirestpedidos.repositories.PedidoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.ProdutoRepository;
 
 @Configuration
@@ -46,6 +48,12 @@ public class TestConfig implements CommandLineRunner {
 
 	@Autowired
 	EnderecoRepository enderecoRepository;
+	
+	@Autowired
+	PedidoRepository pedidoRepository;
+	
+	@Autowired
+	PagamentoRepository pagamentoRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -103,5 +111,8 @@ public class TestConfig implements CommandLineRunner {
 		ped2.setPagamento(pagto2);
 		
 		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+		
+		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
 	}
 }
