@@ -12,6 +12,7 @@ import com.pedrofernandes.apirestpedidos.domain.Cidade;
 import com.pedrofernandes.apirestpedidos.domain.Cliente;
 import com.pedrofernandes.apirestpedidos.domain.Endereco;
 import com.pedrofernandes.apirestpedidos.domain.Estado;
+import com.pedrofernandes.apirestpedidos.domain.ItemPedido;
 import com.pedrofernandes.apirestpedidos.domain.Pagamento;
 import com.pedrofernandes.apirestpedidos.domain.PagamentoComBoleto;
 import com.pedrofernandes.apirestpedidos.domain.PagamentoComCartao;
@@ -24,6 +25,7 @@ import com.pedrofernandes.apirestpedidos.repositories.CidadeRepository;
 import com.pedrofernandes.apirestpedidos.repositories.ClienteRepository;
 import com.pedrofernandes.apirestpedidos.repositories.EnderecoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.EstadoRepository;
+import com.pedrofernandes.apirestpedidos.repositories.ItemPedidoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.PagamentoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.PedidoRepository;
 import com.pedrofernandes.apirestpedidos.repositories.ProdutoRepository;
@@ -55,6 +57,9 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	PagamentoRepository pagamentoRepository;
 
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
+	
 	@Override
 	public void run(String... args) throws Exception {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm");
@@ -114,5 +119,18 @@ public class TestConfig implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1,ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2000.0);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 2, 80.0);
+		ItemPedido ip3 = new ItemPedido(ped2, p2, 100.0, 1, 800.0);
+		
+		ped1.getItens().addAll(Arrays.asList(ip1,ip2));
+		ped2.getItens().add(ip3);
+		
+		p1.getItens().add(ip1);
+		p2.getItens().add(ip3);
+		p3.getItens().add(ip2);
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1,ip2,ip3));
 	}
 }
