@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.pedrofernandes.apirestpedidos.domain.Categoria;
+import com.pedrofernandes.apirestpedidos.dto.CategoriaDTO;
 import com.pedrofernandes.apirestpedidos.repositories.CategoriaRepository;
 import com.pedrofernandes.apirestpedidos.services.exception.DataIntegratyException;
 import com.pedrofernandes.apirestpedidos.services.exception.ObjectNotFoundException;
@@ -52,5 +53,9 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction) , orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO obj) {
+		return new Categoria(obj.getId(), obj.getNome());
 	}
 }
