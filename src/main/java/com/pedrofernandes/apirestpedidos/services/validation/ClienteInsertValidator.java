@@ -8,6 +8,7 @@ import javax.validation.ConstraintValidatorContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.pedrofernandes.apirestpedidos.domain.Cliente;
 import com.pedrofernandes.apirestpedidos.domain.enums.TipoCliente;
 import com.pedrofernandes.apirestpedidos.dto.ClienteNewDTO;
 import com.pedrofernandes.apirestpedidos.repositories.ClienteRepository;
@@ -33,6 +34,11 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInsert
 		
 		if(objDto.getTipo().equals(TipoCliente.PESSOAJURIDICA.getCod()) && !BR.isValidCNPJ(objDto.getCpfOuCnpj())) {
 			list.add(new FieldMessage("cpfOuCnpj", "CNPJ Inválido."));
+		}
+		
+		Cliente aux = repo.findByEmail(objDto.getEmail());
+		if(aux != null) {
+			list.add(new FieldMessage("email", "Email já existente"));
 		}
 		
 		for (FieldMessage e: list) {
