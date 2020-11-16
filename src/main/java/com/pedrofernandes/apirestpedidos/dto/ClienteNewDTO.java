@@ -2,20 +2,44 @@ package com.pedrofernandes.apirestpedidos.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import com.pedrofernandes.apirestpedidos.services.validation.ClienteInsert;
+
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
+	@NotEmpty(message="Campo vázio, preencha-o.")
+	@Length(min=5, max=80, message="O tamanho deve ser de 5 a 120 caractéres")	
 	private String nome;
+	
+	@NotEmpty(message="Campo vázio, preencha-o.")
+	@Email(message="Email inválido")
 	private String email;
+	
+	@NotEmpty(message="Campo vázio, preencha-o.")
 	private String cpfOuCnpj;
+	
 	private Integer tipo;
 	
+	@NotEmpty(message="Campo vázio, preencha-o.")
 	private String logradouro;
+	@NotEmpty(message="Campo vázio, preencha-o.")
 	private String numero;
+	
 	private String complemento;
 	private String bairro;
+	
+	@NotEmpty(message="Campo vázio, preencha-o.")
 	private String cep;
 	
+	@NotEmpty(message="Campo vázio, preencha-o.")
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
