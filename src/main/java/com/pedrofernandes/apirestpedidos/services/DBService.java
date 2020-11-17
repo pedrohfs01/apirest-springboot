@@ -20,6 +20,7 @@ import com.pedrofernandes.apirestpedidos.domain.PagamentoComCartao;
 import com.pedrofernandes.apirestpedidos.domain.Pedido;
 import com.pedrofernandes.apirestpedidos.domain.Produto;
 import com.pedrofernandes.apirestpedidos.domain.enums.EstadoPagamento;
+import com.pedrofernandes.apirestpedidos.domain.enums.Perfil;
 import com.pedrofernandes.apirestpedidos.domain.enums.TipoCliente;
 import com.pedrofernandes.apirestpedidos.repositories.CategoriaRepository;
 import com.pedrofernandes.apirestpedidos.repositories.CidadeRepository;
@@ -125,13 +126,22 @@ public class DBService {
 
 		Cliente cli1 = new Cliente(null, "Pedro", "pedexg@gmail.com", "293180392", TipoCliente.PESSOAFISICA, pe.encode("pedro"));
 		cli1.getTelefones().addAll(Arrays.asList("2313919238", "818328389"));
+		
+		Cliente cli2 = new Cliente(null, "Maria", "maria@gmail.com", "48658877094", TipoCliente.PESSOAFISICA, pe.encode("123456"));
+		cli2.getTelefones().addAll(Arrays.asList("212341512", "2314323253"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apto 203", "Jardim", "38291300", cli1, c1);
 		Endereco e2 = new Endereco(null, "Avenida Matos", "105", "Sala 800", "Centro", "38732918", cli1, c2);
-		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		Endereco e3 = new Endereco(null, "Setor de Mansões", "302", "Brasilia", "Sobradinho", "73018392", cli2, c3);
 
-		clienteRepository.save(cli1);
-		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli2.getEnderecos().addAll(Arrays.asList(e3));
+
+
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoRepository.saveAll(Arrays.asList(e1, e2, e3));
 
 		Pedido ped1 = new Pedido(null, sdf.parse("30/09/2017 10:32"), cli1, e1);
 		Pedido ped2 = new Pedido(null, sdf.parse("10/10/2017 19:35"), cli1, e2);
