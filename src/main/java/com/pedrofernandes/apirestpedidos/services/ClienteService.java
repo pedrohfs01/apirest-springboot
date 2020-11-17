@@ -16,11 +16,14 @@ import org.springframework.stereotype.Service;
 import com.pedrofernandes.apirestpedidos.domain.Cidade;
 import com.pedrofernandes.apirestpedidos.domain.Cliente;
 import com.pedrofernandes.apirestpedidos.domain.Endereco;
+import com.pedrofernandes.apirestpedidos.domain.enums.Perfil;
 import com.pedrofernandes.apirestpedidos.domain.enums.TipoCliente;
 import com.pedrofernandes.apirestpedidos.dto.ClienteDTO;
 import com.pedrofernandes.apirestpedidos.dto.ClienteNewDTO;
 import com.pedrofernandes.apirestpedidos.repositories.ClienteRepository;
 import com.pedrofernandes.apirestpedidos.repositories.EnderecoRepository;
+import com.pedrofernandes.apirestpedidos.security.UserSS;
+import com.pedrofernandes.apirestpedidos.services.exception.AuthorizationException;
 import com.pedrofernandes.apirestpedidos.services.exception.DataIntegratyException;
 import com.pedrofernandes.apirestpedidos.services.exception.ObjectNotFoundException;
 
@@ -37,6 +40,12 @@ public class ClienteService {
 	private BCryptPasswordEncoder pe;
 	
 	public Cliente find(Integer id) {
+		UserSS user = UserService.authenticated();
+		if(user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado.");
+		}
+		
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException("Id "+id+" não encontrado. Tipo: "+Cliente.class.getName()));
 	}
