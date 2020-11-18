@@ -46,9 +46,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			"/categorias/**",
 			"/estados/**"
 	};
+<<<<<<< HEAD
 
 	private static final String[] PUBLIC_MATCHERS_POST = {
 			"/clientes/**",
+=======
+	private static final String[] PUBLIC_MATCHERS_POST = { 
+<<<<<<< HEAD
+<<<<<<< HEAD
+			"/clientes",
+=======
+			"/clientes/**",
+>>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
+=======
+			"/clientes/**",
+>>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
+>>>>>>> ea3f78d57fb8c8bdcb024eb09baa9de6a08e1ad2
 			"/auth/forgot/**"
 	};
 	
