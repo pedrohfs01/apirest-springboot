@@ -37,20 +37,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	JWTUtil jwtUtil;
 	
-	private static final String[] PUBLIC_MATCHERS = { 
+	private static final String[] PUBLIC_MATCHERS = {
 			"/h2-console/**"
 	};
 
-	private static final String[] PUBLIC_MATCHERS_GET = { 
-			"/produtos/**", 
+	private static final String[] PUBLIC_MATCHERS_GET = {
+			"/produtos/**",
 			"/categorias/**",
 			"/estados/**"
 	};
-	private static final String[] PUBLIC_MATCHERS_POST = { 
-			"/clientes",
-			"/clientes/picture",
+
+	private static final String[] PUBLIC_MATCHERS_POST = {
+			"/clientes/**",
 			"/auth/forgot/**"
 	};
+	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		if(Arrays.asList(env.getActiveProfiles()).contains("test")) {
