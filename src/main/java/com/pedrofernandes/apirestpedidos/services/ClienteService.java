@@ -1,8 +1,11 @@
 package com.pedrofernandes.apirestpedidos.services;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import java.awt.image.BufferedImage;
 import java.net.URI;
+=======
+>>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 =======
 >>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 import java.util.List;
@@ -45,6 +48,7 @@ public class ClienteService {
 	@Autowired
 	private BCryptPasswordEncoder pe;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	@Autowired
 	private S3Service s3Service;
@@ -57,6 +61,8 @@ public class ClienteService {
 	
 	@Value("${img.profile.size}")
 	private Integer size;
+=======
+>>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 =======
 >>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 
@@ -145,6 +151,7 @@ public class ClienteService {
 		newObj.setEmail(obj.getEmail());
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
 		UserSS user = UserService.authenticated();
@@ -159,6 +166,8 @@ public class ClienteService {
 		
 		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");	
 	}
+=======
+>>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 =======
 >>>>>>> parent of 9d5ac2d... Adicionando imagem via endpoint
 }
