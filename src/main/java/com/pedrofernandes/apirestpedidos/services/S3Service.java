@@ -1,6 +1,5 @@
 package com.pedrofernandes.apirestpedidos.services;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URI;
@@ -43,8 +42,6 @@ public class S3Service {
 		try {
 			ObjectMetadata meta = new ObjectMetadata();
 			meta.setContentType(contentType);
-
-			File file = new File("");
 			LOG.info("Iniciando Upload");
 			s3client.putObject(bucketName, fileName, is, meta);
 			LOG.info("Finalizado Upload");
